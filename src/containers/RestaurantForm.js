@@ -1,20 +1,22 @@
 import React from 'react'
+import addRestaurant from '../actions/restaurants'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class RestaurantForm extends React.Component{
-
   state = {
-    text: ''
+    restaurant: ''
   }
 
   handleChange = (event) => {
     this.setState({
-      text: event.target.value
+      restaurant: event.target.value
     })
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log("EVENT!")
+    this.props.addRestaurant(this.state)
   }
 
   render(){
@@ -27,7 +29,7 @@ class RestaurantForm extends React.Component{
             type = "text"
             placeholder = "enter restaurant"
             onChange={this.handleChange}
-            value={this.state.text}
+            value={this.state.restaurant}
           />
           <input type = "submit"/>
         </form>
@@ -36,4 +38,14 @@ class RestaurantForm extends React.Component{
   }
 }
 
-export default RestaurantForm;
+const mapStateToProps = (state) => {
+  return {restaurants: state.restaurants}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addRestaurant: addRestaurant
+  }, dispatch);
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(RestaurantForm);

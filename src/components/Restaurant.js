@@ -1,9 +1,10 @@
 import React from 'react'
 
 const Restaurant = (props) => {
+  console.log(props)
     return (
       <div>
-        <h1> Single Restaurant </h1>
+        <p>{props.resto.restaurant}</p>
       </div>
     )
 }
